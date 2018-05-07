@@ -25,20 +25,27 @@ namespace Märkmed
                    "\n3. Kustutada kõik märkmed" +
                    "\n4. Väljuda programmist");
                 var cmd = Console.ReadLine();
-
+                Console.WriteLine();
                 //Lugemine
                 if (cmd == "1")
                 {
-                    var märkmed = new List<Märge>();
-                    var serializer = new XmlSerializer(typeof(List<Märge>));
-                    using (var reader = XmlReader.Create("../.../märkmed.xml"))
+                    if (!File.Exists("../.../märkmed.xml"))
                     {
-                        märkmed = (List<Märge>)serializer.Deserialize(reader);
+                        Console.WriteLine("Faili, millest märkmeid lugeda pole olemas.");
                     }
-
-                    foreach (var märge in märkmed)
+                    else
                     {
-                        Console.WriteLine("Pealkiri: " + märge.Pealkiri + " || Sisu: " + märge.Sisu);
+                        var märkmed = new List<Märge>();
+                        var serializer = new XmlSerializer(typeof(List<Märge>));
+                        using (var reader = XmlReader.Create("../.../märkmed.xml"))
+                        {
+                            märkmed = (List<Märge>)serializer.Deserialize(reader);
+                        }
+
+                        foreach (var märge in märkmed)
+                        {
+                            Console.WriteLine("Pealkiri: " + märge.Pealkiri + " || Sisu: " + märge.Sisu);
+                        } 
                     }
                 }
                 //Kirjutamine
@@ -63,7 +70,7 @@ namespace Märkmed
                     {
                         var doc = new XmlDocument();
                         doc.Load("../.../märkmed.xml");
-                        var rootNode = doc.GetElementsByTagName("Märge")[0];
+                        XmlNode rootNode = doc.GetElementsByTagName("ArrayOfMärge")[0];
                         var nav = rootNode.CreateNavigator();
                         var emptyNamespaces = new XmlSerializerNamespaces(new[] {
                         XmlQualifiedName.Empty });
