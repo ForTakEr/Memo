@@ -45,7 +45,8 @@ namespace Märkmed
                         foreach (var märge in märkmed)
                         {
                             Console.WriteLine("Pealkiri: " + märge.Pealkiri + " || Sisu: " + märge.Sisu);
-                        } 
+                        }
+                        
                     }
                 }
                 //Kirjutamine
@@ -68,19 +69,33 @@ namespace Märkmed
                     }
                     else if (File.Exists("../.../märkmed.xml"))
                     {
-                        var doc = new XmlDocument();
-                        doc.Load("../.../märkmed.xml");
-                        XmlNode rootNode = doc.GetElementsByTagName("Märge")[0];
-                        var nav = rootNode.CreateNavigator();
-                        var emptyNamespaces = new XmlSerializerNamespaces(new[] {
-                        XmlQualifiedName.Empty });
-
-                        using (var writer = nav.AppendChild())
+                        var Olemas = new List<Märge>();
+                        var serial = new XmlSerializer(typeof(List<Märge>));
+                        using (var reader = XmlReader.Create("../.../märkmed.xml"))
                         {
-                            writer.WriteWhitespace("");
-                            serializer.Serialize(writer, märkmed, emptyNamespaces); 
+                            märkmed = (List<Märge>)serializer.Deserialize(reader);
                         }
-                        doc.Save("../.../märkmed.xml");
+
+                        var märge2 = new Märge() { Pealkiri = pealkiri, Sisu = sisu };
+                        märkmed.Add(märge2);
+
+                        using (var writer = XmlWriter.Create("../.../märkmed.xml"))
+                        {
+                            serializer.Serialize(writer, märkmed);
+                        }
+                        //var doc = new XmlDocument();
+                        //doc.Load("../.../märkmed.xml");
+                        //XmlNode rootNode = doc.GetElementsByTagName("Märge")[0];
+                        //var nav = rootNode.CreateNavigator();
+                        //var emptyNamespaces = new XmlSerializerNamespaces(new[] {
+                        //XmlQualifiedName.Empty });
+
+                        //using (var writer = nav.AppendChild())
+                        //{
+                        //    writer.WriteWhitespace("");
+                        //    serializer.Serialize(writer, märkmed, emptyNamespaces); 
+                        //}
+                        //doc.Save("../.../märkmed.xml");
                     }
                 }
                 //Kustutamine
