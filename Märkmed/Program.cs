@@ -69,7 +69,6 @@ namespace Märkmed
                     }
                     else if (File.Exists("../.../märkmed.xml"))
                     {
-                        var Olemas = new List<Märge>();
                         var serial = new XmlSerializer(typeof(List<Märge>));
                         using (var reader = XmlReader.Create("../.../märkmed.xml"))
                         {
