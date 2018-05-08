@@ -70,7 +70,7 @@ namespace Märkmed
                     {
                         var doc = new XmlDocument();
                         doc.Load("../.../märkmed.xml");
-                        XmlNode rootNode = doc.GetElementsByTagName("ArrayOfMärge")[0];
+                        XmlNode rootNode = doc.GetElementsByTagName("Märge")[0];
                         var nav = rootNode.CreateNavigator();
                         var emptyNamespaces = new XmlSerializerNamespaces(new[] {
                         XmlQualifiedName.Empty });
@@ -78,8 +78,9 @@ namespace Märkmed
                         using (var writer = nav.AppendChild())
                         {
                             writer.WriteWhitespace("");
-                            serializer.Serialize(writer, märkmed, emptyNamespaces);
+                            serializer.Serialize(writer, märkmed, emptyNamespaces); 
                         }
+                        doc.Save("../.../märkmed.xml");
                     }
                 }
                 //Kustutamine
