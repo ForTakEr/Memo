@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Märkmed
 {
+    /// <summary>
+    /// This class sets the title and content of a note.
+    /// </summary>
     public class Märge
     {
         public string Pealkiri { get; set; }
