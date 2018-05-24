@@ -15,6 +15,9 @@ namespace Märkmed
     /// </summary>
     class Lugemine
     {
+        /// <summary>
+        /// Uses XmlSerializer to read the xml file and output it to the console.
+        /// </summary>
         public void Luger()
         {
            if (!File.Exists("../.../märkmed.xml"))

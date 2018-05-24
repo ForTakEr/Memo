@@ -15,6 +15,9 @@ namespace Märkmed
     /// </summary>
     class Kirjutamine
     {
+        /// <summary>
+        /// Uses XmlSerializer to write/create the xml file. Reads the file with XmlSerializer to add to a list and write the new note at the end. 
+        /// </summary>
         public void Kirjutaja()
         {
             var märkmed = new List<Märge>();
